@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HuviringidSet">
+          <Key>
+            <PropertyRef Name="HuviringidID" />
+          </Key>
+          <Property Name="HuviringidID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nimi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Vanuseruhm" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Kirjeldus" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OsalejaSet">
+          <Key>
+            <PropertyRef Name="OsalejaID" />
+          </Key>
+          <Property Name="OsalejaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Eesnimi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Perekonnanimi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistreerimineSet">
+          <Key>
+            <PropertyRef Name="RegistreerimineID" />
+          </Key>
+          <Property Name="RegistreerimineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistreerimiseKuupaev" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Staatus" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Osaleja_OsalejaID" Type="int" Nullable="false" />
+          <Property Name="Huviringid_HuviringidID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HuviringidRegistreerimine">
+          <End Role="HuviringidSet" Type="Self.HuviringidSet" Multiplicity="1" />
+          <End Role="RegistreerimineSet" Type="Self.RegistreerimineSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HuviringidSet">
+              <PropertyRef Name="HuviringidID" />
+            </Principal>
+            <Dependent Role="RegistreerimineSet">
+              <PropertyRef Name="Huviringid_HuviringidID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OsalejaRegistreerimine">
+          <End Role="OsalejaSet" Type="Self.OsalejaSet" Multiplicity="1" />
+          <End Role="RegistreerimineSet" Type="Self.RegistreerimineSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OsalejaSet">
+              <PropertyRef Name="OsalejaID" />
+            </Principal>
+            <Dependent Role="RegistreerimineSet">
+              <PropertyRef Name="Osaleja_OsalejaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="HuviringidSet" EntityType="Self.HuviringidSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OsalejaSet" EntityType="Self.OsalejaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistreerimineSet" EntityType="Self.RegistreerimineSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HuviringidRegistreerimine" Association="Self.FK_HuviringidRegistreerimine">
+            <End Role="HuviringidSet" EntitySet="HuviringidSet" />
+            <End Role="RegistreerimineSet" EntitySet="RegistreerimineSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OsalejaRegistreerimine" Association="Self.FK_OsalejaRegistreerimine">
+            <End Role="OsalejaSet" EntitySet="OsalejaSet" />
+            <End Role="RegistreerimineSet" EntitySet="RegistreerimineSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HuviringidSet" EntityType="Model1.Huviringid" />
+          <EntitySet Name="RegistreerimineSet" EntityType="Model1.Registreerimine" />
+          <EntitySet Name="OsalejaSet" EntityType="Model1.Osaleja" />
+          <AssociationSet Name="OsalejaRegistreerimine" Association="Model1.OsalejaRegistreerimine">
+            <End Role="Osaleja" EntitySet="OsalejaSet" />
+            <End Role="Registreerimine" EntitySet="RegistreerimineSet" />
+          </AssociationSet>
+          <AssociationSet Name="HuviringidRegistreerimine" Association="Model1.HuviringidRegistreerimine">
+            <End Role="Huviringid" EntitySet="HuviringidSet" />
+            <End Role="Registreerimine" EntitySet="RegistreerimineSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Huviringid">
+          <Key>
+            <PropertyRef Name="HuviringidID" />
+          </Key>
+          <Property Name="HuviringidID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nimi" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Vanuseruhm" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Kirjeldus" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Registreerimine" Relationship="Model1.HuviringidRegistreerimine" FromRole="Huviringid" ToRole="Registreerimine" />
+        </EntityType>
+        <EntityType Name="Registreerimine">
+          <Key>
+            <PropertyRef Name="RegistreerimineID" />
+          </Key>
+          <Property Name="RegistreerimineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistreerimiseKuupaev" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Staatus" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Osaleja" Relationship="Model1.OsalejaRegistreerimine" FromRole="Registreerimine" ToRole="Osaleja" />
+          <NavigationProperty Name="Huviringid" Relationship="Model1.HuviringidRegistreerimine" FromRole="Registreerimine" ToRole="Huviringid" />
+        </EntityType>
+        <EntityType Name="Osaleja">
+          <Key>
+            <PropertyRef Name="OsalejaID" />
+          </Key>
+          <Property Name="OsalejaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Eesnimi" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Perekonnanimi" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Registreerimine" Relationship="Model1.OsalejaRegistreerimine" FromRole="Osaleja" ToRole="Registreerimine" />
+        </EntityType>
+        <Association Name="OsalejaRegistreerimine">
+          <End Type="Model1.Osaleja" Role="Osaleja" Multiplicity="1" />
+          <End Type="Model1.Registreerimine" Role="Registreerimine" Multiplicity="*" />
+        </Association>
+        <Association Name="HuviringidRegistreerimine">
+          <End Type="Model1.Huviringid" Role="Huviringid" Multiplicity="1" />
+          <End Type="Model1.Registreerimine" Role="Registreerimine" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="HuviringidSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Huviringid)">
+        <MappingFragment StoreEntitySet="HuviringidSet">
+          <ScalarProperty Name="HuviringidID" ColumnName="HuviringidID" />
+          <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+          <ScalarProperty Name="Vanuseruhm" ColumnName="Vanuseruhm" />
+          <ScalarProperty Name="Kirjeldus" ColumnName="Kirjeldus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegistreerimineSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Registreerimine)">
+        <MappingFragment StoreEntitySet="RegistreerimineSet">
+          <ScalarProperty Name="RegistreerimineID" ColumnName="RegistreerimineID" />
+          <ScalarProperty Name="RegistreerimiseKuupaev" ColumnName="RegistreerimiseKuupaev" />
+          <ScalarProperty Name="Staatus" ColumnName="Staatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OsalejaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Osaleja)">
+        <MappingFragment StoreEntitySet="OsalejaSet">
+          <ScalarProperty Name="OsalejaID" ColumnName="OsalejaID" />
+          <ScalarProperty Name="Eesnimi" ColumnName="Eesnimi" />
+          <ScalarProperty Name="Perekonnanimi" ColumnName="Perekonnanimi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="OsalejaRegistreerimine" TypeName="Model1.OsalejaRegistreerimine" StoreEntitySet="RegistreerimineSet">
+      <EndProperty Name="Osaleja">
+        <ScalarProperty Name="OsalejaID" ColumnName="Osaleja_OsalejaID" />
+      </EndProperty>
+      <EndProperty Name="Registreerimine">
+        <ScalarProperty Name="RegistreerimineID" ColumnName="RegistreerimineID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HuviringidRegistreerimine" TypeName="Model1.HuviringidRegistreerimine" StoreEntitySet="RegistreerimineSet">
+      <EndProperty Name="Huviringid">
+        <ScalarProperty Name="HuviringidID" ColumnName="Huviringid_HuviringidID" />
+      </EndProperty>
+      <EndProperty Name="Registreerimine">
+        <ScalarProperty Name="RegistreerimineID" ColumnName="RegistreerimineID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
