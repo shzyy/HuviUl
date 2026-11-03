@@ -76,6 +76,34 @@
             <asp:Parameter Name="RegistreerimineID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
-    Registreerimise Tabel
+    <h1><strong>Registreerimise Tabel</strong></h1>
+&nbsp;<br />
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="RegistreerimineID" DataSourceID="SqlDataSourceregistreerimine2" EmptyDataText="There are no data records to display.">
+        <Columns>
+            <asp:BoundField DataField="RegistreerimineID" HeaderText="RegistreerimineID" InsertVisible="False" ReadOnly="True" SortExpression="RegistreerimineID" />
+            <asp:BoundField DataField="RegistreerimiseKuupaev" HeaderText="RegistreerimiseKuupaev" SortExpression="RegistreerimiseKuupaev" />
+            <asp:BoundField DataField="Staatus" HeaderText="Staatus" SortExpression="Staatus" />
+            <asp:BoundField DataField="Osaleja_OsalejaID" HeaderText="Osaleja_OsalejaID" SortExpression="Osaleja_OsalejaID" />
+            <asp:BoundField DataField="Huviringid_HuviringidID" HeaderText="Huviringid_HuviringidID" SortExpression="Huviringid_HuviringidID" />
+        </Columns>
+    </asp:GridView>
+    <asp:SqlDataSource ID="SqlDataSourceregistreerimine2" runat="server" ConnectionString="<%$ ConnectionStrings:HuviringidConnectionString %>" DeleteCommand="DELETE FROM [RegistreerimineSet] WHERE [RegistreerimineID] = @RegistreerimineID" InsertCommand="INSERT INTO [RegistreerimineSet] ([RegistreerimiseKuupaev], [Staatus], [Osaleja_OsalejaID], [Huviringid_HuviringidID]) VALUES (@RegistreerimiseKuupaev, @Staatus, @Osaleja_OsalejaID, @Huviringid_HuviringidID)" SelectCommand="SELECT * FROM [RegistreerimineSet]" UpdateCommand="UPDATE [RegistreerimineSet] SET [RegistreerimiseKuupaev] = @RegistreerimiseKuupaev, [Staatus] = @Staatus, [Osaleja_OsalejaID] = @Osaleja_OsalejaID, [Huviringid_HuviringidID] = @Huviringid_HuviringidID WHERE [RegistreerimineID] = @RegistreerimineID">
+        <DeleteParameters>
+            <asp:Parameter Name="RegistreerimineID" Type="Int32" />
+        </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="RegistreerimiseKuupaev" Type="String" />
+            <asp:Parameter Name="Staatus" Type="String" />
+            <asp:Parameter Name="Osaleja_OsalejaID" Type="Int32" />
+            <asp:Parameter Name="Huviringid_HuviringidID" Type="Int32" />
+        </InsertParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="RegistreerimiseKuupaev" Type="String" />
+            <asp:Parameter Name="Staatus" Type="String" />
+            <asp:Parameter Name="Osaleja_OsalejaID" Type="Int32" />
+            <asp:Parameter Name="Huviringid_HuviringidID" Type="Int32" />
+            <asp:Parameter Name="RegistreerimineID" Type="Int32" />
+        </UpdateParameters>
+    </asp:SqlDataSource>
     <br />
 </asp:Content>
